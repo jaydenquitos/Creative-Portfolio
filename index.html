@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-name">
+                <h1>Jayden Quitos</h1>
+            </div>
+            <nav class="header-nav">
+                <a href="photography.html" class="nav-link">Photography</a>
+                <a href="graphic-design.html" class="nav-link">Graphic Design</a>
+            </nav>
+            <div class="header-connections">
+                <div class="connection-item">
+                    <a href="mailto:jayden.quitos@outlook.com" class="connection-link" target="_blank">Email</a>
+                </div>
+                <div class="connection-item">
+                    <a href="https://linkedin.com/in/jayden-quitos/" class="connection-link" target="_blank">LinkedIn</a>
+                </div>
+                <div class="connection-item">
+                    <a href="https://www.instagram.com/jaydenquitos/" class="connection-link" target="_blank">Instagram</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Jayden Quitos</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="portfolio-container">
+            <div class="portfolio-category">
+                <div class="section-title">Photography</div>
+                <div class="portfolio-grid">
+                    <div class="highlight-square" onclick="openPhotoDetail('Beach')" style="cursor: pointer;">
+                        <img src="assets/Beach.jpg" alt="Photography 1">
+                    </div>
+                    <div class="highlight-square" onclick="openPhotoDetail('Pretty Girl')" style="cursor: pointer;">
+                        <img src="assets/Pretty Girl.jpg" alt="Photography 2">
+                    </div>
+                    <div class="highlight-square" onclick="openPhotoDetail('background')" style="cursor: pointer;">
+                        <img src="assets/background.jpg" alt="Photography 3">
+                    </div>
+                    <div class="highlight-square" onclick="openPhotoDetail('Concert')" style="cursor: pointer;">
+                        <img src="assets/Concert.jpg" alt="Photography 4">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="portfolio-category">
+                <div class="section-title">Graphic Design Projects</div>
+                <div class="portfolio-grid">
+                    <div class="highlight-square" onclick="openPhotoDetail('Travis')" style="cursor: pointer;">
+                        <img src="assets/Travis.png" alt="Graphic Design 1">
+                    </div>
+                    <div class="highlight-square" onclick="openPhotoDetail('Kendrick')" style="cursor: pointer;">
+                        <img src="assets/Kendrick.png" alt="Graphic Design 2">
+                    </div>
+                    <div class="highlight-square" onclick="openPhotoDetail('Me')" style="cursor: pointer;">
+                        <img src="assets/Me.jpg" alt="Graphic Design 3">
+                    </div>
+                    <div class="highlight-square" onclick="openPhotoDetail('GT')" style="cursor: pointer;">
+                        <img src="assets/GT.jpg" alt="Graphic Design 4">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Open photo detail page
+        function openPhotoDetail(photoName) {
+            window.location.href = `photo-detail.html?photo=${photoName}`;
+        }
+    </script>
+    </body>
+</html>

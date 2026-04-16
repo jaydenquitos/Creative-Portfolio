@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Detail - Jayden Quitos Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .photo-detail-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            gap: 3rem;
+            align-items: flex-start;
+            position: relative;
+        }
+        
+        .photo-image-container {
+            flex: 1;
+            max-width: 450px;
+        }
+        
+        .photo-image {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .photo-info {
+            flex: 1;
+            max-width: 500px;
+        }
+        
+        .photo-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 1rem;
+        }
+        
+        .photo-category {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        .photo-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+        
+        .photo-tools {
+            background: rgba(247, 241, 234, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .photo-tools h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #000000;
+        }
+        
+        .tool-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tool-tag {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .back-button {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            color: #000000;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            background: transparent;
+            text-align: center;
+            display: block;
+        }
+        
+        .back-button:hover {
+            color: #000000;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: #d32f2f;
+        }
+        
+        @media (max-width: 768px) {
+            .photo-detail-container {
+                flex-direction: column;
+                gap: 2rem;
+                margin: 1rem;
+            }
+            
+            .photo-image-container,
+            .photo-info {
+                max-width: 100%;
+            }
+            
+            .photo-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="header-name">
+                <h1>Jayden Quitos</h1>
+            </div>
+            <nav class="header-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="photography.html" class="nav-link">Photography</a>
+                <a href="graphic-design.html" class="nav-link">Graphic Design</a>
+            </nav>
+            <div class="header-connections">
+                <div class="connection-item">
+                    <a href="mailto:jayden.quitos@outlook.com" class="connection-link" target="_blank">Email</a>
+                </div>
+                <div class="connection-item">
+                    <a href="https://linkedin.com/in/jayden-quitos/" class="connection-link" target="_blank">LinkedIn</a>
+                </div>
+                <div class="connection-item">
+                    <a href="https://www.instagram.com/jaydenquitos/" class="connection-link" target="_blank">Instagram</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Jayden Quitos</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="photo-content">
+            <div class="loading">Loading photo details...</div>
+        </div>
+    </main>
+
+    <script>
+        // Photo data with descriptions and tools used
+        const photoData = {
+            // Photography photos
+            'Beach': {
+                title: 'Sunset Beach',
+                category: 'Photography',
+                description: 'A stunning sunset captured at the beach during golden hour. The warm colors and dramatic clouds create a mesmerizing atmosphere that showcases the beauty of nature.',
+                tools: ['Canon EOS R5', '24-70mm lens', 'Lightroom', 'Photoshop'],
+                image: 'assets/Beach.jpg'
+            },
+            'Pretty Girl': {
+                title: 'Portrait Session',
+                category: 'Photography',
+                description: 'A professional portrait session focusing on natural lighting and authentic expressions. This image demonstrates skill in working with subjects to capture genuine emotions.',
+                tools: ['Canon EOS R5', '85mm prime lens', 'Natural lighting', 'Lightroom'],
+                image: 'assets/Pretty Girl.jpg'
+            },
+            'background': {
+                title: 'Urban Background',
+                category: 'Photography',
+                description: 'An urban exploration shot that captures the texture and character of city architecture. The interplay of light and shadow creates depth and visual interest.',
+                tools: ['Canon EOS R5', '16-35mm wide angle', 'Golden hour', 'Lightroom'],
+                image: 'assets/background.jpg'
+            },
+            'Concert': {
+                title: 'Live Performance',
+                category: 'Photography',
+                description: 'Dynamic concert photography capturing the energy and emotion of live music performance. Low light conditions and fast movement present unique challenges.',
+                tools: ['Canon EOS R5', '70-200mm lens', 'Low light', 'High ISO', 'Lightroom'],
+                image: 'assets/Concert.jpg'
+            },
+            // Graphic Design works
+            'Travis': {
+                title: 'Travis Scott Poster',
+                category: 'Graphic Design',
+                description: 'A promotional poster design for a music event featuring bold typography and vibrant colors. This piece demonstrates skills in composition and visual hierarchy.',
+                tools: ['Adobe Photoshop', 'Adobe Illustrator', 'Typography', 'Color theory'],
+                image: 'assets/Travis.png'
+            },
+            'Kendrick': {
+                title: 'Kendrick Lamar Artwork',
+                category: 'Graphic Design',
+                description: 'Artistic interpretation combining photography and digital effects to create a unique visual style. This work showcases advanced photo manipulation techniques.',
+                tools: ['Adobe Photoshop', 'Photo manipulation', 'Digital effects', 'Color grading'],
+                image: 'assets/Kendrick.png'
+            },
+            'Me': {
+                title: 'Self Portrait Design',
+                category: 'Graphic Design',
+                description: 'A personal project exploring self-expression through digital art. This piece combines photography with graphic elements to create a unique visual narrative.',
+                tools: ['Adobe Photoshop', 'Portrait retouching', 'Digital art', 'Composition'],
+                image: 'assets/Me.jpg'
+            },
+            'GT': {
+                title: 'Gaming Tournament Graphics',
+                category: 'Graphic Design',
+                description: 'Professional graphics package for an esports tournament including logos, banners, and promotional materials. Demonstrates brand consistency and versatility.',
+                tools: ['Adobe Illustrator', 'Adobe Photoshop', 'Brand design', 'Vector graphics'],
+                image: 'assets/GT.jpg'
+            }
+        };
+
+        // Get photo ID from URL parameter
+        function getPhotoId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('photo');
+        }
+
+        // Display photo details
+        function displayPhotoDetails() {
+            const photoId = getPhotoId();
+            const contentDiv = document.getElementById('photo-content');
+            
+            if (!photoId || !photoData[photoId]) {
+                contentDiv.innerHTML = '<div class="error">Photo not found. Please go back to the gallery.</div>';
+                return;
+            }
+            
+            const photo = photoData[photoId];
+            
+            contentDiv.innerHTML = `
+                <div class="photo-detail-container">
+                    <div class="photo-image-container">
+                        <img src="${photo.image}" alt="${photo.title}" class="photo-image">
+                    </div>
+                    <div class="photo-info">
+                        <h1 class="photo-title">${photo.title}</h1>
+                        <div class="photo-category">${photo.category}</div>
+                        <p class="photo-description">${photo.description}</p>
+                        <div class="photo-tools">
+                            <h3>Tools & Techniques</h3>
+                            <div class="tool-list">
+                                ${photo.tools.map(tool => `<span class="tool-tag">${tool}</span>`).join('')}
+                            </div>
+                        </div>
+                        <a href="javascript:history.back()" class="back-button">Back</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', displayPhotoDetails);
+    </script>
+</body>
+</html>
