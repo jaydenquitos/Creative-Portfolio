@@ -27,15 +27,29 @@ function loadImages() {
     }
     
     let img = new Image();
-    img.src = `${folder}${i}.jpg`;
+    img.src = `${folder}${i}.jpg?v=${Date.now()}`;
     
     img.onload = function() {
         const div = document.createElement('div');
         div.className = itemClass;
         div.style.cursor = 'pointer';
-        div.onclick = function() {
-            openPhotoDetail(i.toString());
-        };
+        
+        // Embed modal functionality directly into this card
+        div.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get the modal elements
+            const modal = document.getElementById('photoModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            if (modal && modalImg) {
+                // Set the image source and show modal
+                modalImg.src = img.src; // Use the loaded image source directly
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        });
+        
         div.appendChild(img);
         gallery.appendChild(div);
         i++;
@@ -45,15 +59,29 @@ function loadImages() {
     img.onerror = function() {
         // Try .jpeg extension
         img = new Image();
-        img.src = `${folder}${i}.jpeg`;
+        img.src = `${folder}${i}.jpeg?v=${Date.now()}`;
         
         img.onload = function() {
             const div = document.createElement('div');
             div.className = itemClass;
             div.style.cursor = 'pointer';
-            div.onclick = function() {
-                openPhotoDetail(i.toString());
-            };
+            
+            // Embed modal functionality directly into this card
+            div.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get the modal elements
+                const modal = document.getElementById('photoModal');
+                const modalImg = document.getElementById('modalImage');
+                
+                if (modal && modalImg) {
+                    // Set the image source and show modal
+                    modalImg.src = img.src; // Use the loaded image source directly
+                    modal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+            
             div.appendChild(img);
             gallery.appendChild(div);
             i++;
@@ -69,9 +97,23 @@ function loadImages() {
                 const div = document.createElement('div');
                 div.className = itemClass;
                 div.style.cursor = 'pointer';
-                div.onclick = function() {
-                    openPhotoDetail(i.toString());
-                };
+                
+                // Embed modal functionality directly into this card
+                div.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the modal elements
+                    const modal = document.getElementById('photoModal');
+                    const modalImg = document.getElementById('modalImage');
+                    
+                    if (modal && modalImg) {
+                        // Set the image source and show modal
+                        modalImg.src = img.src; // Use the loaded image source directly
+                        modal.style.display = 'flex';
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+                
                 div.appendChild(img);
                 gallery.appendChild(div);
                 i++;
@@ -96,18 +138,51 @@ function updateCopyrightYear() {
     });
 }
 
-// Open photo detail page
-function openPhotoDetail(photoName) {
-    window.location.href = `photo-detail.html?photo=${photoName}`;
+
+// Close modal functionality
+function closeModal() {
+    const modal = document.getElementById('photoModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Add modal event listeners when DOM is ready
+function setupModalEvents() {
+    // Close modal when clicking the X
+    const closeBtn = document.querySelector('.close-modal');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+
+    // Close modal when clicking outside the image
+    const modal = document.getElementById('photoModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
 }
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+        setupModalEvents();
         loadImages();
         updateCopyrightYear();
     });
 } else {
+    setupModalEvents();
     loadImages();
     updateCopyrightYear();
 }

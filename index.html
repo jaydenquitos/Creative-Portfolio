@@ -41,17 +41,20 @@
             <div class="portfolio-category">
                 <div class="section-title">Photography</div>
                 <div class="portfolio-grid">
-                    <div class="highlight-square" onclick="openPhotoDetail('Beach')" style="cursor: pointer;">
-                        <img src="assets/Beach.jpg" alt="Photography 1">
+                    <div class="highlight-square">
+                        <img src="assets/Photos/10.png?v=202504170121" alt="Photography 1">
                     </div>
-                    <div class="highlight-square" onclick="openPhotoDetail('Pretty Girl')" style="cursor: pointer;">
-                        <img src="assets/Pretty Girl.jpg" alt="Photography 2">
+                    <div class="highlight-square">
+                        <img src="assets/Photos/12.jpg?v=202504170121" alt="Photography 2">
                     </div>
-                    <div class="highlight-square" onclick="openPhotoDetail('background')" style="cursor: pointer;">
-                        <img src="assets/background.jpg" alt="Photography 3">
+                    <div class="highlight-square">
+                        <img src="assets/Photos/1.jpg?v=202504170121" alt="Photography 3">
                     </div>
-                    <div class="highlight-square" onclick="openPhotoDetail('Concert')" style="cursor: pointer;">
-                        <img src="assets/Concert.jpg" alt="Photography 4">
+                    <div class="highlight-square">
+                        <img src="assets/Photos/15.jpg?v=202504170121" alt="Photography 4">
+                    </div>
+                    <div class="highlight-square">
+                        <img src="assets/Photos/8.jpg?v=202504170121" alt="Photography 5">
                     </div>
                 </div>
             </div>
@@ -59,28 +62,87 @@
             <div class="portfolio-category">
                 <div class="section-title">Graphic Design Projects</div>
                 <div class="portfolio-grid">
-                    <div class="highlight-square" onclick="openPhotoDetail('Travis')" style="cursor: pointer;">
-                        <img src="assets/Travis.png" alt="Graphic Design 1">
+                    <div class="highlight-square">
+                        <img src="assets/Graphic Design/17.png?v=202504170121" alt="Graphic Design 1">
                     </div>
-                    <div class="highlight-square" onclick="openPhotoDetail('Kendrick')" style="cursor: pointer;">
-                        <img src="assets/Kendrick.png" alt="Graphic Design 2">
+                    <div class="highlight-square">
+                        <img src="assets/Graphic Design/13.png?v=202504170121" alt="Graphic Design 2">
                     </div>
-                    <div class="highlight-square" onclick="openPhotoDetail('Me')" style="cursor: pointer;">
-                        <img src="assets/Me.jpg" alt="Graphic Design 3">
+                    <div class="highlight-square">
+                        <img src="assets/Graphic Design/7.jpg?v=202504170121" alt="Graphic Design 3">
                     </div>
-                    <div class="highlight-square" onclick="openPhotoDetail('GT')" style="cursor: pointer;">
-                        <img src="assets/GT.jpg" alt="Graphic Design 4">
+                    <div class="highlight-square">
+                        <img src="assets/Graphic Design/8.png?v=202504170121" alt="Graphic Design 4">
+                    </div>
+                    <div class="highlight-square">
+                        <img src="assets/Graphic Design/4.png" alt="Graphic Design 5">
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Photo Modal -->
+    <div id="photoModal" class="photo-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modalImage" src="" alt="">
+        </div>
+    </div>
+
     <script>
-        // Open photo detail page
-        function openPhotoDetail(photoName) {
-            window.location.href = `photo-detail.html?photo=${photoName}`;
+        // Photo modal functionality
+        function openPhotoModal(imageSrc) {
+            const modal = document.getElementById('photoModal');
+            const modalImg = document.getElementById('modalImage');
+            
+            modalImg.src = imageSrc;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
         }
+
+        function closePhotoModal() {
+            const modal = document.getElementById('photoModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when clicking the X
+        document.querySelector('.close-modal').addEventListener('click', closePhotoModal);
+
+        // Close modal when clicking outside the image
+        document.getElementById('photoModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePhotoModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePhotoModal();
+            }
+        });
+
+        // Update photo click handlers
+        function openPhotoDetail(element) {
+            // Get the clicked element and find the image source
+            const photoElement = element.currentTarget || element;
+            const imgSrc = photoElement.querySelector('img').src;
+            openPhotoModal(imgSrc);
+        }
+
+        // Add click event listeners to all photos
+        document.addEventListener('DOMContentLoaded', function() {
+            const photoElements = document.querySelectorAll('.highlight-square');
+            photoElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const imgSrc = this.querySelector('img').src;
+                    openPhotoModal(imgSrc);
+                });
+            });
+        });
     </script>
-    </body>
+</body>
 </html>
